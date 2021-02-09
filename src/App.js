@@ -1,11 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Counter from './components/Counter'
 
+import Greet from './components/Greet'
+import Welcome from './components/Welcome'
+import Counter from './components/Counter'
 
 function App() {
   return (
     <div className="App">
+      <Greet name="Diana" heroName="Wonder Woman" >
+        <button>Action</button>
+      <Welcome name="Bruce" heroName="Batman"></Welcome>
       <Counter></Counter>
     </div>
   );
