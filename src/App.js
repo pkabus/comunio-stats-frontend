@@ -6,6 +6,7 @@ import Welcome from './components/Welcome'
 import Counter from './components/Counter'
 import FunctionClick from './components/FunctionClick'
 import ClassClick from './components/ClassClick'
+import EventBind from './components/EventBind'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Counter></Counter>
       <FunctionClick />
       <ClassClick />
+      <EventBind />
     </div>
   );
 }
