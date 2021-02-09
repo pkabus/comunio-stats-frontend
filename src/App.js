@@ -10,8 +10,9 @@ function App() {
     <div className="App">
       <Greet name="Diana" heroName="Wonder Woman" >
         <button>Action</button>
-      <Welcome name="Bruce" heroName="Batman"></Welcome>
-      <Counter></Counter>
+        </Greet>
+        <Welcome name="Bruce" heroName="Batman"></Welcome>
+        <Counter></Counter>
     </div>
   );
 }
