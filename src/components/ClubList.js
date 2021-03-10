@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { properties } from '../properties.js';
 import ClubItem from './ClubItem'
 
 export class ClubList extends Component {
@@ -14,10 +15,11 @@ export class ClubList extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/clubs/all")
-            .then(response => {
+        const { host, port } = properties
+        axios.get(`http://${host}:${port}/clubs/all`)
+        .then(response => {
                 this.setState({
-                    clubs: response.data
+                    clubs: response.data._embedded.club_dto_list
                 })
             })
             .catch(error => {
