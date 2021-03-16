@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { properties } from '../properties.js';
-import ClubItem from './ClubItem'
+import { properties } from '../properties.js'
+import { Link } from "react-router-dom"
+import { ListGroup } from 'react-bootstrap'
 
-export class ClubList extends Component {
+class ClubList extends Component {
 
     constructor(props) {
         super(props)
@@ -16,8 +17,8 @@ export class ClubList extends Component {
 
     componentDidMount() {
         const { host, port } = properties
-        axios.get(`http://${host}:${port}/clubs/all`)
-        .then(response => {
+        axios.get(`http://${host}:${port}/clubs/all?size=18`)
+            .then(response => {
                 this.setState({
                     clubs: response.data._embedded.club_dto_list
                 })
@@ -35,15 +36,18 @@ export class ClubList extends Component {
         return (
             <div>
                 <h1>Bundesliga Clubs</h1>
-                {
-                    clubs.length ?
-                    clubs.map(club => <ClubItem key={club.id} name={club.name} />) :
-                        null
-                }
-                
-                {
-                    errorMsg ? <div>{errorMsg}</div> : null
-                }
+                <ListGroup variant="flush">
+                    {
+                        clubs.length ?
+                            clubs.map(club =>
+                                <ListGroup.Item key={club.id}>
+                                    <Link to={{
+                                        pathname: `/clubs/${club.id}`,
+                                    }}>{club.name}</Link>
+                                </ListGroup.Item>)
+                            : null
+                    }
+                </ListGroup>
             </div>
         )
     }

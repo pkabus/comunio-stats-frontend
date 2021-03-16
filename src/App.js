@@ -1,11 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
 import ClubList from './components/ClubList'
+import ClubItem from './components/ClubItem'
+import PlayerItem from './components/PlayerItem'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <ClubList />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <ClubList />
+          </Route>
+          <Route path="/clubs/:clubId" component={ClubItem} />
+          <Route path="/players/:playerId" component={PlayerItem} />
+        </Switch>
+      </Router>
     </div>
   );
 }
