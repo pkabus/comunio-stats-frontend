@@ -15,6 +15,10 @@ RUN npm install react-scripts@4.0.2 -g --silent
 # add app
 COPY . .
 
+# environment variables (with defaults)
+ENV REACT_APP_BACKEND_HOST api-comuniohelper.ddns.net
+ENV REACT_APP_BACKEND_PORT 8080
+
 # start app
 CMD ["npm", "start"]
 

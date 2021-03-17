@@ -1,6 +1,6 @@
 import React, { Component, useDebugValue } from 'react'
 import axios from 'axios'
-import { properties } from '../properties.js'
+import { backend_properties } from '../backend_properties.js'
 import { LineChart, Line, XAxis, Label, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import moment from 'moment'
 import { Container } from 'react-bootstrap'
@@ -40,9 +40,9 @@ class PlayerItem extends Component {
     }
 
     componentDidMount() {
-        const { host, port } = properties
+        const { backend_host, backend_port } = backend_properties
         const { playerId } = this.props.match.params
-        axios.get(`http://${host}:${port}/players?id=${playerId}`)
+        axios.get(`http://${backend_host}:${backend_port}/players?id=${playerId}`)
             .then(response => {
                 this.setState({
                     playerName: response.data.name
@@ -56,7 +56,7 @@ class PlayerItem extends Component {
 
         const start = moment().subtract(28, "days").format("YYYY-MM-DD")
         const end = moment().format("YYYY-MM-DD")
-        axios.get(`http://${host}:${port}/players/snapshots?playerId=${playerId}&start=${start}&end=${end}&size=30`)
+        axios.get(`http://${backend_host}:${backend_port}/players/snapshots?playerId=${playerId}&start=${start}&end=${end}&size=30`)
             .then(response => {
                 this.setState({
                     snapshots: response.data._embedded.player_snapshot_dto_list

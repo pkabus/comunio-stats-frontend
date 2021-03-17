@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { properties } from '../properties.js'
+import { backend_properties } from '../backend_properties.js'
 import { Link } from 'react-router-dom'
 import { ListGroup } from 'react-bootstrap'
 
@@ -16,8 +16,8 @@ class ClubList extends Component {
     }
 
     componentDidMount() {
-        const { host, port } = properties
-        axios.get(`http://${host}:${port}/clubs/all?size=18`)
+        const { backend_host, backend_port } = backend_properties
+        axios.get(`http://${backend_host}:${backend_port}/clubs/all?size=18`)
             .then(response => {
                 this.setState({
                     clubs: response.data._embedded.club_dto_list
