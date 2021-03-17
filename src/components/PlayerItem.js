@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, useDebugValue } from 'react'
 import axios from 'axios'
 import { properties } from '../properties.js'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, Label, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import moment from 'moment'
+import { Container } from 'react-bootstrap'
 
 class PlayerItem extends Component {
     constructor(props) {
@@ -12,12 +13,31 @@ class PlayerItem extends Component {
             playerName: '',
             snapshots: []
         }
+
+        this.chartFormatter = this.chartFormatter.bind(this)
+        this.monetaryFormatterSmall = this.monetaryFormatterSmall.bind(this)
     }
 
-    numberFormatter(number) {
-        return "€" + new Intl.NumberFormat('de').format(number)
+    monetaryFormatterSmall(value) {
+        if (value > 999999) {
+            return "€" + value / 1000000 + " M"
+        }
+
+        return this.monetaryFormatter(value)
     }
 
+    monetaryFormatter(value) {
+        return "€" + new Intl.NumberFormat('de').format(value)
+    }
+
+
+    chartFormatter(value, name) {
+        if (name && name === "Market Value") {
+            return this.monetaryFormatter(value)
+        }
+
+        return value
+    }
 
     componentDidMount() {
         const { host, port } = properties
@@ -63,51 +83,45 @@ class PlayerItem extends Component {
 
 
         return (
-            <div>
+            <Container>
                 <h1>{playerName}</h1>
-                <ResponsiveContainer width="90%" height={400}>
+                <ResponsiveContainer width="100%" height={400}>
                     <LineChart
                         width={500}
                         height={300}
                         data={snapshots}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 50,
-                            bottom: 5,
-                        }}
+                        margin={{left: 20}}>
 
-                    >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
-                        <YAxis tickFormatter={this.numberFormatter} />
-                        <Tooltip formatter={this.numberFormatter} />
+                        <YAxis yAxisId="market_value" tickFormatter={this.monetaryFormatterSmall} />
+                        <YAxis yAxisId="points" orientation="right" >
+                            <Label
+                                value='Points'
+                                angle={-90}
+                                position='outside'
+                                fill='#676767'
+                                fontSize={16}
+                                dx={10}
+                            />
+                        </YAxis>
+                        <Tooltip formatter={this.chartFormatter} />
                         <Legend />
-                        <Line type="monotone" dataKey="market_value" name="Market Value" stroke="#8884d8" strokeWidth={2} activeDot={{ r: 8 }} />
+                        <Line yAxisId="market_value"
+                            type="monotone"
+                            dataKey="market_value"
+                            name="Market Value"
+                            stroke="#8884d8"
+                            strokeWidth={2} />
+                        <Line yAxisId="points"
+                            type="monotone"
+                            dataKey="points"
+                            name="Points"
+                            stroke="#82ca9d"
+                            strokeWidth={2} />
                     </LineChart>
                 </ResponsiveContainer>
-
-                <ResponsiveContainer width="90%" height={400}>
-                    <LineChart
-                        width={500}
-                        height={300}
-                        data={snapshots}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 50,
-                            bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="points" name="Points" stroke="#82ca9d" strokeWidth={2} activeDot={{ r: 8 }} />
-                    </LineChart>
-                </ResponsiveContainer>
-            </div >
+            </Container>
         )
     }
 }

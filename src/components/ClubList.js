@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { properties } from '../properties.js'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 import { ListGroup } from 'react-bootstrap'
 
 class ClubList extends Component {
