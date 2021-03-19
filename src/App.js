@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ClubList from './components/ClubList'
 import ClubItem from './components/ClubItem'
@@ -6,8 +5,7 @@ import PlayerItem from './components/PlayerItem'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
