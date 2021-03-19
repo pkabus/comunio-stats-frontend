@@ -1,4 +1,4 @@
-import React, { Component, useDebugValue } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import { backend_properties } from '../backend_properties.js'
 import { LineChart, Line, XAxis, Label, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
@@ -11,7 +11,8 @@ class PlayerItem extends Component {
 
         this.state = {
             playerName: '',
-            snapshots: []
+            snapshots: [],
+            errorMsg: ''
         }
 
         this.chartFormatter = this.chartFormatter.bind(this)
@@ -79,8 +80,10 @@ class PlayerItem extends Component {
 
 
     render() {
-        const { playerName, snapshots } = this.state
-
+        const { playerName, snapshots, errorMsg } = this.state
+        if (errorMsg) {
+            console.error(errorMsg)
+        }
 
         return (
             <Container>

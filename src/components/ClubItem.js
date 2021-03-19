@@ -47,7 +47,10 @@ class ClubItem extends Component {
 
     render() {
         // const { name } = this.props.location.state
-        const { name, playerSnapshots } = this.state
+        const { name, playerSnapshots, errorMsg } = this.state
+        if (errorMsg) {
+            console.error(errorMsg)
+        }
         return (
             <div>
                 <h1>{name}</h1>

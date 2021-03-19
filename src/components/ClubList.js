@@ -33,6 +33,9 @@ class ClubList extends Component {
 
     render() {
         const { clubs, errorMsg } = this.state
+        if (errorMsg) {
+            console.error(errorMsg)
+        }
         return (
             <div>
                 <h1>Bundesliga Clubs</h1>
