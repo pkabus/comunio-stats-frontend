@@ -31,7 +31,7 @@ CMD ["serve", "-s", "build"]
 # Expose port
 EXPOSE 5000
 
-# docker run -it --rm -p 1337:5000 comunio-stats-frontend:prod
+# docker run -itd --rm --name comunio-stats-frontend -p 1337:5000 comunio-stats-frontend:piprod
 #
 # sources
 # https://mherman.org/blog/dockerizing-a-react-app/
