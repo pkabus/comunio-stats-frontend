@@ -6,9 +6,9 @@ PATH_REPO=/home/pi/projects/comunio-stats-frontend
 git -C $PATH_REPO pull
 
 # if Dockerfile.piprod has been modified in the last 24 hours
-if [ "$(find $PATH_REPO/Dockerfile.piprod -type f -mtime -1)" ]
+if [ "$(find $PATH_REPO/ -type f -mtime -1)" ]
 then
-    echo "Dockerfile.piprod has been modified, build docker image..."
+    echo "Changes in directory $PATH_REPO detected, build docker image..."
 
     # build pi production docker image
     docker build -f $PATH_REPO/Dockerfile.piprod -t pi/comunio-stats-frontend:piprod .
