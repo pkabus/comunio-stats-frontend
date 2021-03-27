@@ -13,8 +13,8 @@ then
     # build pi production docker image
     docker build -f $PATH_REPO/Dockerfile.piprod -t pi/comunio-stats-frontend:piprod .
 
-    # stop running container with given name
-    docker stop comunio-stats-frontend
+    # stop and remove running container with given name
+    docker stop comunio-stats-frontend && docker rm comunio-stats-frontend
 
     # run pi production docker container
     docker run -itd --rm --name comunio-stats-frontend -p 1337:5000 pi/comunio-stats-frontend:piprod
